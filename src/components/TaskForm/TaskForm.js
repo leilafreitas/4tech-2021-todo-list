@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import {WhatToDo} from './WhatToDo/WhatToDo';
+import {Who} from './Who/Who';
+import {IsItUrgent} from './IsItUrgent/IsItUrgent'
 
 export const TaskForm = () =>{
 
@@ -14,6 +16,8 @@ export const TaskForm = () =>{
     return(
         <TaskForm>
             <WhatToDo/>
+            <Who/>
+            <IsItUrgent/>
         </TaskForm>
     );
 
