@@ -1,25 +1,37 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
+import uniqid from 'uniqid';
 
-export const IsItUrgent = () =>{
+export const IsItUrgent = ({initialUrgency, onChangePriority}) =>{
 
-    const [urgencyScale, setUrgencyScale] = useState([
+    const defaultlUrgencyScale=[
         {
             urgency:'low',
             color:'#71a1ff',
-            selected:true
+            selected:false
         },
         {
             urgency:'avarage',
             color:'#f8Bd26',
             selected:false
-        },        {
+        },        
+        {
             urgency:'high',
             color:'#ff7171',
             selected:false
         },
 
-    ])
+    ]
+    
+    const initialUrgencyScale = defaultlUrgencyScale.map(item => {
+        if (item.urgency === initialUrgency.urgency) {
+            return { ...item, selected: true }
+        }
+
+        return item
+    })
+
+    const [urgencyScale, setUrgencyScale] = useState(initialUrgencyScale)
 
     const FormItem = styled.div`
         display:flex;
@@ -42,12 +54,25 @@ export const IsItUrgent = () =>{
         border-radius: 5px;
     `;
 
-    const generateUrgencyOptions = () =>{
+    const onClickSetUrgency = (urgency) => {
+        const newUrgencyScale = urgencyScale.map(item=>{       
+            if(item.urgency === urgency){
+                return {...item,selected:true}
 
-        return urgencyScale.map((item)=>{
+            }
+            return {...item,selected:false}      
+        })
+        setUrgencyScale(newUrgencyScale); 
+        onChangePriority(newUrgencyScale.find(item => item.selected === true)) ;   
+    }
+
+    const generateUrgencyOptions = () => {
+
+        return urgencyScale.map((item)=> {
             if(item.selected){
 
                 return <div
+                    key={uniqid()}
                     style={{
                         backgroundColor:item.color,
                         width:'calc(2.5rem + 5px)',
@@ -61,7 +86,7 @@ export const IsItUrgent = () =>{
             }
 
             return <div
-                    
+                    key={uniqid()}  
                     style={{
                         backgroundColor:item.color,
                         width:'2.5rem',
@@ -69,6 +94,7 @@ export const IsItUrgent = () =>{
                         cursor:'pointer'
 
                     }}
+                    onClick={()=>onClickSetUrgency(item.urgency)}
                 />
         })
     }

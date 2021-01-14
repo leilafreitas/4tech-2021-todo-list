@@ -4,22 +4,11 @@ import uniqid from 'uniqid';
 
 import {LeftOutlined,RightOutlined} from '@ant-design/icons';
 import {Avatar} from 'antd';
+import {whoList} from '../../../helpers/whoList';
 
-import Avatar1 from '../../../assets/avatar1.png';
-import Avatar2 from '../../../assets/avatar2.png';
-import Avatar3 from '../../../assets/avatar3.png';
-import Avatar4 from '../../../assets/avatar4.png';
+export const Who = ({initialSelectedWho, onChangeSelectedWho}) =>{
 
-export const Who = () =>{
-
-    const [select,setSelected] = useState(1);
-
-    const completeWhoList =[
-        {id:1,image:Avatar1},
-        {id:2,image:Avatar2},
-        {id:3,image:Avatar3},
-        {id:4,image:Avatar4},
-    ]
+    const [select,setSelected] = useState(initialSelectedWho);
 
     const FormItem = styled.div`
         display:flex;
@@ -82,11 +71,11 @@ export const Who = () =>{
                 <SelectedToTheLeftOrRight onClick={onClickLeft}><LeftOutlined/></SelectedToTheLeftOrRight>
                 <AvatarArea>
                     {
-                        completeWhoList.map((item,key)=>{
+                        whoList.map((item,key)=>{
                             return(
                                 <Avatar 
-                                className= {select===item.id ? 'AvatarStyle':''}
-                                style={select===item.id ?{
+                                className= {select===item.idx ? 'AvatarStyle':''}
+                                style={select===item.idx ?{
                                     height:'calc(3rem + 5px)',
                                     width:'calc(3rem + 5px)',
                                     margin:'0 0.3rem',
@@ -99,8 +88,11 @@ export const Who = () =>{
                                     cursor:'pointer',
                                     }}
 
-                                onClick={()=>setSelected(item.id)}
-                                icon={<img src={item.image} alt={`Avatar ${item.id}`}/>} 
+                                onClick={()=>{
+                                    setSelected(item.idx)
+                                    onChangeSelectedWho(item.idx);
+                                }}
+                                icon={<img src={item.image} alt={`Avatar ${item.idx}`}/>} 
                                 key={uniqid()}/>
                             )
                         })

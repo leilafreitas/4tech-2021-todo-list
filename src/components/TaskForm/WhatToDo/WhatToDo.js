@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const WhatToDo = () =>{
+export const WhatToDo = ({initialWhatToDo, onChangeWhatToDo}) =>{
 
     const FormItem = styled.div`
         display:flex;
@@ -25,7 +25,7 @@ export const WhatToDo = () =>{
     return(
         <FormItem>
             <WhatToDoLabel>What to do?</WhatToDoLabel>
-            <InputWhatToDo/>
+            <InputWhatToDo placeholder={initialWhatToDo} onChange={(e)=>onChangeWhatToDo(e.target.value)} type='text'/>
         </FormItem>
     );
 
