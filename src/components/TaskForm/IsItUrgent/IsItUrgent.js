@@ -1,6 +1,5 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import uniqid from 'uniqid';
 
 export const IsItUrgent = ({initialUrgency, onChangePriority}) =>{
 

@@ -74,7 +74,7 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
                         .filter(item => item.status === 'To Do')
                         .map((item,key)=>{
                             return <TaskCard 
-                            key={`To Do-${key}`}
+                            key={`ToDo ${key}`}
                             data={item}
                             changeTaskStatus={changeTaskStatus}
                             />
@@ -87,7 +87,7 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
                         .filter(item => item.status === 'Doing')
                         .map((item,key)=>{
                             return <TaskCard 
-                            key={`Doing-${key}`}
+                            key={`Doing ${key}`}
                             data={item}
                             changeTaskStatus={changeTaskStatus}
                             />
@@ -100,7 +100,7 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
                         .filter(item => item.status === 'Done')
                         .map((item,key)=>{
                             return <TaskCard 
-                            key={`Done-${key}`}
+                            key={`Done ${key}`}
                             data={item}
                             changeTaskStatus={changeTaskStatus}
                             />
