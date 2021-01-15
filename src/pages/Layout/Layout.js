@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import {TaskForm} from '../../components/TaskForm/TaskForm';
 import {TaskList} from '../../components/TaskList/TaskList';
+import api from '../../helpers/API';
 
 
 export const Layout = () =>{
@@ -9,20 +10,28 @@ export const Layout = () =>{
     const [taskList,setTaskList] = useState([]);
     const [loading,setLoading] = useState(false);
 
-    const submitNewTask = (newTask) =>{
+
+    useEffect(()=>{
+        const getPosts = async() => {
+            const posts = await api.getTask();
+            setTaskList(posts); 
+        }
+        getPosts();
+    },[])
+
+    const submitNewTask = async(newTask) =>{
         const taskListCopy = [...taskList];
         taskListCopy.push(newTask);
 
         const reorderedTaskListCopy = taskListCopy.sort((x, y) => x.createdAt - y.createdAt)
 
         setLoading(true)
-
-        setTimeout(() => {
-            setLoading(false)
+        const response = await api.postTask(newTask);
+        if(response.status === 200){
+            setLoading(false)           
             setTaskList(reorderedTaskListCopy)
-        }, 3000)
-        console.log(taskList);
 
+        }
     }
 
     const Container = styled.div`

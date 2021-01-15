@@ -2,6 +2,7 @@ import React from 'react';
 import {Spin} from 'antd';
 import styled from 'styled-components'
 import { TaskCard } from './TaskCard/TaskCard';
+import api from '../../helpers/API';
 
 export const TaskList = ({loading,taskList,setTaskList}) =>{
     
@@ -20,9 +21,6 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
             background-color:#fff;
             border-radius:1px;
         } 
-        .SpinArea{
-            
-        }
     `;
 
     const ColumnHeaderArea = styled.div`
@@ -44,12 +42,19 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
         margin-bottom:2rem;
     `;
 
-    const changeTaskStatus = (taskId,moveTo)=>{
+    const changeTaskStatus = async(taskId,moveTo)=>{
         const taskListCopy = [...taskList];
         const taskToBeMoved = taskListCopy.find(item=>item.taskId === taskId);
         taskToBeMoved.status = moveTo;
+        await api.putTask(taskId,taskToBeMoved);
         setTaskList(taskListCopy);
 
+    }
+
+    const deleteTask = async(taskId) => {
+        await api.deleteTask(taskId);
+        const newTasks = taskList.filter(item=>item.taskId !== taskId);
+        setTaskList(newTasks);
     }
 
     const generateTaskColumns = () =>{
@@ -77,6 +82,7 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
                             key={`ToDo ${key}`}
                             data={item}
                             changeTaskStatus={changeTaskStatus}
+                            deleteTask = {deleteTask}
                             />
                         })
                     }
@@ -90,6 +96,7 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
                             key={`Doing ${key}`}
                             data={item}
                             changeTaskStatus={changeTaskStatus}
+                            deleteTask = {deleteTask}
                             />
                         })
                     }
@@ -103,6 +110,7 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
                             key={`Done ${key}`}
                             data={item}
                             changeTaskStatus={changeTaskStatus}
+                            deleteTask = {deleteTask}
                             />
                         })
                     }

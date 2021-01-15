@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 import {Avatar, Card, Tag} from 'antd';
 import {whoList} from '../../../helpers/whoList';
+import {CloseCircleOutlined} from '@ant-design/icons';
 
 
-export const TaskCard = ({data,changeTaskStatus}) => {
+export const TaskCard = ({data,changeTaskStatus,deleteTask}) => {
 
 
     const Footer = styled.div`
@@ -38,18 +39,19 @@ export const TaskCard = ({data,changeTaskStatus}) => {
         const ToDo = <Tag style={{ cursor: 'pointer' }} color="volcano" onClick={() => changeTaskStatus(data.taskId, 'To Do')}> To Do </Tag>
         const Doing = <Tag style={{ cursor: 'pointer' }} color="magenta" onClick={() => changeTaskStatus(data.taskId, 'Doing')}> Doing </Tag>
         const Done = <Tag style={{ cursor: 'pointer' }} color="green" onClick={() => changeTaskStatus(data.taskId, 'Done')}> Done </Tag>
+        const Close = <CloseCircleOutlined style={{color:'red',cursor:'pointer'}} onClick={()=>deleteTask(data.taskId)} />
 
         switch (data.status) {
             case 'To Do':
-                return [Doing, Done]
+                return [Doing, Done, Close]
             default:
                 return
 
             case 'Doing':
-                return [ToDo, Done]
+                return [ToDo, Done, Close]
 
             case 'Done':
-                return [ToDo, Doing]
+                return [ToDo, Doing,Close]
         }
     }
 
