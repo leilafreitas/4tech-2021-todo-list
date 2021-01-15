@@ -5,9 +5,7 @@ import {Avatar, Card, Tag} from 'antd';
 import {whoList} from '../../../helpers/whoList';
 import {CloseCircleOutlined} from '@ant-design/icons';
 
-
 export const TaskCard = ({data,changeTaskStatus,deleteTask}) => {
-
 
     const Footer = styled.div`
         display:flex;
@@ -35,11 +33,13 @@ export const TaskCard = ({data,changeTaskStatus,deleteTask}) => {
         return <CardTitle>Priority <ColorBlock/></CardTitle>
     }
 
+
+
     const getCardButtons = () =>{
         const ToDo = <Tag style={{ cursor: 'pointer' }} color="volcano" onClick={() => changeTaskStatus(data.taskId, 'To Do')}> To Do </Tag>
         const Doing = <Tag style={{ cursor: 'pointer' }} color="magenta" onClick={() => changeTaskStatus(data.taskId, 'Doing')}> Doing </Tag>
         const Done = <Tag style={{ cursor: 'pointer' }} color="green" onClick={() => changeTaskStatus(data.taskId, 'Done')}> Done </Tag>
-        const Close = <CloseCircleOutlined style={{color:'red',cursor:'pointer'}} onClick={()=>deleteTask(data.taskId)} />
+        const Close = <CloseCircleOutlined style={{color:'red',cursor:'pointer'}} onClick={() => deleteTask(data.taskId)} />
 
         switch (data.status) {
             case 'To Do':

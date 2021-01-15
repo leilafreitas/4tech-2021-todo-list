@@ -19,17 +19,18 @@ export const Layout = () =>{
         getPosts();
     },[])
 
+    const getList=async()=>{
+        const taskListCopy = await api.getTask();
+        const reorderedTaskListCopy = taskListCopy.sort((x, y) => x.createdAt - y.createdAt);
+        setTaskList(reorderedTaskListCopy);
+    }
+
     const submitNewTask = async(newTask) =>{
-        const taskListCopy = [...taskList];
-        taskListCopy.push(newTask);
-
-        const reorderedTaskListCopy = taskListCopy.sort((x, y) => x.createdAt - y.createdAt)
-
         setLoading(true)
         const response = await api.postTask(newTask);
         if(response.status === 200){
             setLoading(false)           
-            setTaskList(reorderedTaskListCopy)
+            getList();
 
         }
     }
@@ -46,6 +47,6 @@ export const Layout = () =>{
 
     return <Container>
         <TaskForm loading={loading} submitNewTask={submitNewTask} />
-        <TaskList loading={loading} taskList={taskList} setTaskList={setTaskList}/>
+        <TaskList loading={loading} taskList={taskList} setTaskList={setTaskList} getList={getList}/>
     </Container>
 }

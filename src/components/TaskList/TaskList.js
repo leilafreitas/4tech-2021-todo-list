@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { TaskCard } from './TaskCard/TaskCard';
 import api from '../../helpers/API';
 
-export const TaskList = ({loading,taskList,setTaskList}) =>{
+export const TaskList = ({loading,taskList,getList}) =>{
     
     const TaskListLayout = styled.div`
         padding-right:0.5rem;
@@ -47,15 +47,16 @@ export const TaskList = ({loading,taskList,setTaskList}) =>{
         const taskToBeMoved = taskListCopy.find(item=>item.taskId === taskId);
         taskToBeMoved.status = moveTo;
         await api.putTask(taskId,taskToBeMoved);
-        setTaskList(taskListCopy);
+        getList();
 
     }
 
     const deleteTask = async(taskId) => {
         await api.deleteTask(taskId);
-        const newTasks = taskList.filter(item=>item.taskId !== taskId);
-        setTaskList(newTasks);
+        getList();
+        
     }
+
 
     const generateTaskColumns = () =>{
         const Column = styled.div`
