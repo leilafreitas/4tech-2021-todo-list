@@ -1,7 +1,5 @@
 import React,{useState} from 'react';
 import styled from 'styled-components';
-import uniqid from 'uniqid';
-
 import {LeftOutlined,RightOutlined} from '@ant-design/icons';
 import {Avatar} from 'antd';
 import {whoList} from '../../../helpers/whoList';
@@ -93,7 +91,7 @@ export const Who = ({initialSelectedWho, onChangeSelectedWho}) =>{
                                     onChangeSelectedWho(item.idx);
                                 }}
                                 icon={<img src={item.image} alt={`Avatar ${item.idx}`}/>} 
-                                key={uniqid()}/>
+                                key={key}/>
                             )
                         })
                     }

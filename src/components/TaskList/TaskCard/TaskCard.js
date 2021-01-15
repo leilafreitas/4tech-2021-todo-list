@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Avatar, Card, Tag} from 'antd';
 import {whoList} from '../../../helpers/whoList';
-import uniqid from 'uniqid';
+
 
 export const TaskCard = ({data,changeTaskStatus}) => {
 
@@ -51,12 +51,6 @@ export const TaskCard = ({data,changeTaskStatus}) => {
         }
     }
 
-    const generateWhoOnFooter = () =>{
-        return <Avatar
-                src={<img src={whoList.find(item=>item.idx === data.selectedWho).image} alt='Selected Avatar'/>}
-            />
-    }
-
     return(
         <Card size='small' title={getPriorityAndSetInfoTitle()} extra={getCardButtons()} 
         style={{
@@ -70,7 +64,9 @@ export const TaskCard = ({data,changeTaskStatus}) => {
             </div>
             <Footer>
                 <span>Created at {new Date().toLocaleDateString()}</span>
-                <span>{generateWhoOnFooter()}</span>
+                <Avatar
+                    src={<img src={whoList.find(item=>item.idx === data.selectedWho).image} alt='Selected Avatar'/>}
+                />
             </Footer>
         </Card>
     );

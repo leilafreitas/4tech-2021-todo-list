@@ -68,11 +68,11 @@ export const IsItUrgent = ({initialUrgency, onChangePriority}) =>{
 
     const generateUrgencyOptions = () => {
 
-        return urgencyScale.map((item)=> {
+        return urgencyScale.map((item,key)=> {
             if(item.selected){
 
                 return <div
-                    key={uniqid()}
+                    key={key}
                     style={{
                         backgroundColor:item.color,
                         width:'calc(2.5rem + 5px)',
@@ -86,7 +86,7 @@ export const IsItUrgent = ({initialUrgency, onChangePriority}) =>{
             }
 
             return <div
-                    key={uniqid()}  
+                    key={key}  
                     style={{
                         backgroundColor:item.color,
                         width:'2.5rem',
