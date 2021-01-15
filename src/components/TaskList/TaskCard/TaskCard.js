@@ -5,7 +5,7 @@ import {Avatar, Card, Tag} from 'antd';
 import {whoList} from '../../../helpers/whoList';
 
 
-export const TaskCard = ({tabkey,data,changeTaskStatus}) => {
+export const TaskCard = ({data,changeTaskStatus}) => {
 
 
     const Footer = styled.div`
